@@ -1,6 +1,7 @@
 package com.example.CodingEvents.controllers;
 
 
+import com.example.CodingEvents.data.EventCategoriesRepository;
 import com.example.CodingEvents.data.EventRepository;
 import com.example.CodingEvents.models.Event;
 import com.example.CodingEvents.models.EventType;
@@ -19,6 +20,9 @@ public class EventController {
 
     @Autowired  //dependency injection
     private EventRepository eventRepository;
+
+    @Autowired
+    private EventCategoriesRepository eventCategoriesRepository;
 
 //    private static List<Event> eventsList = new ArrayList<>();
 
@@ -44,7 +48,8 @@ public class EventController {
         model.addAttribute("title", "Create Event");
         model.addAttribute(new Event()); //passing information about the object with default constructor,
                                         // name attributes in the form are parsing field names (used also for connecting validation annotation from the class)
-        model.addAttribute("types", EventType.values()); // array of enum values for rendering in the form
+    //    model.addAttribute("types", EventType.values()); // array of enum values for rendering in the form
+        model.addAttribute("categories", eventCategoriesRepository.findAll());
         return "events/create";
     }
 
