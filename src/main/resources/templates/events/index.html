@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1>All Events</h1>
+
+<br>
+<nav th:replace="fragments :: navigation"></nav>
+<br>
+
+<p th:unless="${events} and ${events.size()}">No Events</p> <!-- !(if there is and object called events and that object has size == true) -->
+
+<form method="post">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Event Type</th>
+                <th>Description</th>
+                <th>Contact Email</th>
+            </tr>
+        </thead>
+        <tr th:each="event : ${events}">
+            <td> <input type="checkbox" name="eventIds" th:value="${event.id}"> </td>
+            <td th:text="${event.id}"></td>
+            <td th:text="${event.name}"></td>  <!-- .name automatically targets getter of the model -->
+            <td th:text="${event.type.displayName}"></td>
+            <td th:text="${event.description}"></td>
+            <td th:text="${event.contactEmail}"></td>
+        </tr>
+    </table>
+
+
+    <input type="submit" value="Delete" class="btn btn-danger">
+</form>
+
+
+</body>
+</html>

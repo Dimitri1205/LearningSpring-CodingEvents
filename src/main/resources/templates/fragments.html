@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <title th:text="${title}"></title>
+<!--
+    <script th:src="@{/script.js}"></script>
+    <link th:href="@{/styles.css}" rel="stylesheet">
+    scripts and css files from resources/static folder -->
+
+    <!-- bootstrap scripts and css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link th:href="@{/styles.css}" rel="stylesheet">
+
+</head>
+<body class="container">
+
+<nav th:fragment="navigation">
+    <ul class="nav">
+        <li class="nav-item"> <a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item"> <a class="nav-link" href="/events">All Events</a></li>
+        <li class="nav_item"> <a class="nav-link" href="/eventCategories">Event Categories</a></li>
+        <li class="nav-item"> <a class="nav-link" href="/events/create">Create Event</a>
+        <li class="nav-item"> <a class="nav-link" href="/eventCategories/create">Create Event Category</a></li>
+    </ul>
+</nav>
+
+</body>
+</html>
