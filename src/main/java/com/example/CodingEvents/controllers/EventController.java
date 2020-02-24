@@ -4,6 +4,7 @@ package com.example.CodingEvents.controllers;
 import com.example.CodingEvents.data.EventCategoriesRepository;
 import com.example.CodingEvents.data.EventRepository;
 import com.example.CodingEvents.models.Event;
+import com.example.CodingEvents.models.EventCategory;
 import com.example.CodingEvents.models.EventType;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("events")
@@ -36,10 +38,25 @@ public class EventController {
 //    }
 
     @GetMapping
-    public String displayAllEvents (Model model) {
-        model.addAttribute("title", "All events");
-        model.addAttribute("events", eventRepository.findAll());
-        return "events/index";
+    public String displayAllEvents (@RequestParam(required = false) Integer categoryId, Model model) {
+
+        if (categoryId == null) {
+            model.addAttribute("title", "All events");
+            model.addAttribute("events", eventRepository.findAll());
+        } else {
+
+            Optional<EventCategory> result = eventCategoriesRepository.findById(categoryId);
+            if (result.isPresent()) {
+                EventCategory category = result.get();
+                model.addAttribute("title", "Cat: " + category.getName());
+                model.addAttribute("events", category.getEventList());
+
+            } else {
+                model.addAttribute("title", "No Results");
+            }
+        }
+            return "events/index";
+
     }
 
     //lives at /events/create
@@ -95,6 +112,8 @@ public class EventController {
         }
         return "redirect:";
     }
+
+
 
 
 }
