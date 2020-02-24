@@ -9,6 +9,7 @@
 <nav th:replace="fragments :: navigation"></nav>
 <br>
 
+<h2 th:text="${event.name}"></h2>
 <table class="table table-striped">
     <tr>
         <th>ID</th>
@@ -16,11 +17,11 @@
     </tr>
     <tr>
         <th>Description</th>
-        <td th:text="${event.description}"></td>
+        <td th:text="${event.eventDetails.description}"></td>
     </tr>
     <tr>
         <th>Contact Email</th>
-        <td th:text="${event.contactEmail}"></td>
+        <td th:text="${event.eventDetails.contactEmail}"></td>
     </tr>
 </table>
 

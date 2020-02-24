@@ -90,6 +90,7 @@ public class EventController {
             return "events/create";
         }
 //        EventData.addEvent(newEvent);
+
         eventRepository.save(newEvent);
         return "redirect:";
     }

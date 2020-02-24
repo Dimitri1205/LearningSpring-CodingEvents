@@ -43,9 +43,9 @@ public class EventCategoryController {
     }
 
     @PostMapping()
-    public String deleteEventCategory (@RequestParam(required = false) int[] eventCategoryId) {
-        if (eventCategoryId != null) {
-            for (int id: eventCategoryId) {
+    public String deleteEventCategory (@RequestParam(required = false) int[] eventCategoryIds) {
+        if (eventCategoryIds != null) {
+            for (int id: eventCategoryIds) {
                 eventCategoriesRepository.deleteById(id);
             }
         }

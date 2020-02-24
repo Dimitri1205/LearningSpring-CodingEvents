@@ -1,9 +1,11 @@
 package com.example.CodingEvents.models;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.Email;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -17,32 +19,21 @@ public class Event extends AbstractEntity {
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
 
-    @Size(max = 500, message = "Description too long")
-    private String description;
-
-    @NotBlank(message = "Email required")
-    @Email(message = "Invalid email, try again")
-    private String contactEmail;
 
     @ManyToOne  //many events can be related to one category
     @NotNull(message = "Category is required")
     private EventCategory eventCategory;
 
+    @OneToOne(cascade = CascadeType.ALL) //tells hibernate to cascade down all operations performed on the event to the eventDetails (save,file,update)
+    @Valid
+    @NotNull
+    private EventDetails eventDetails;
+
     public Event (){}
 
-    public Event(String name, String description, String email, EventCategory eventCategory) {
+    public Event(String name, EventCategory eventCategory) {
         this.name = name;
-        this.description = description;
-        this.contactEmail = email;
         this.eventCategory = eventCategory;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
 
@@ -54,13 +45,6 @@ public class Event extends AbstractEntity {
         this.name = name;
     }
 
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
 
     public EventCategory getEventCategory() {
         return eventCategory;
@@ -68,6 +52,14 @@ public class Event extends AbstractEntity {
 
     public void setEventCategory(EventCategory eventCategory) {
         this.eventCategory = eventCategory;
+    }
+
+    public EventDetails getEventDetails() {
+        return eventDetails;
+    }
+
+    public void setEventDetails(EventDetails eventDetails) {
+        this.eventDetails = eventDetails;
     }
 
     @Override
